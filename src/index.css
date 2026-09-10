@@ -1,5 +1,5 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: dark;
@@ -35,6 +35,15 @@ button:focus-visible {
 }
 
 body {
+  min-width: 320px;
     background: var(--bg);
     color: var(--text);
+}
+
+img {
+  max-width: 100%;
+}
+
+table {
+  max-width: 100%;
 }

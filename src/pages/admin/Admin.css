@@ -156,4 +156,10 @@
     .admin-signup form {
         padding: 1.25rem;
     }
+
+    .admin-dashboard,
+    .admin-login,
+    .admin-signup {
+        width: min(100% - 1.5rem, 1100px);
+    }
 }

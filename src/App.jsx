@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom'
 
 /* ================= PAGES ================= */
 import Home from './pages/Home'
@@ -20,38 +21,64 @@ import './App.css'
 export default function App() {
   return (
     <Router>
-      <div className="app-container">
+      <AppLayout />
+    </Router>
+  )
+}
+
+function AppLayout() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const location = useLocation()
+
+  const closeMenu = () => setIsMenuOpen(false)
+
+  return (
+    <div className="app-container">
 
         {/* ================= NAVBAR ================= */}
-        <nav className="navbar">
+        <nav className="navbar" aria-label="Primary navigation">
           {/* Logo */}
-          <Link to="/" className="navbar-logo">
+          <Link to="/" className="navbar-logo" onClick={closeMenu}>
             <img src={pngRflLogo} alt="PNG RFL Logo" />
           </Link>
 
-          {/* Navigation Links */}
-          <ul className="nav-links">
-            <li><Link to="/">Home</Link></li>
+          <button
+            type="button"
+            className={`menu-toggle${isMenuOpen ? ' is-open' : ''}`}
+            aria-expanded={isMenuOpen}
+            aria-controls="primary-navigation"
+            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            onClick={() => setIsMenuOpen(open => !open)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
 
-            <li><Link to="/teams">Teams</Link></li>
+          {/* Navigation Links */}
+          <ul id="primary-navigation" className={`nav-links${isMenuOpen ? ' is-open' : ''}`}>
+            <li><Link to="/" onClick={closeMenu}>Home</Link></li>
+
+            <li><Link to="/teams" onClick={closeMenu}>Teams</Link></li>
 
             {/* Match Centre handles Fixtures & Results */}
-            <li><Link to="/matches">Fixtures</Link></li>
-            <li><Link to="/matches">Results</Link></li>
+            <li><Link to="/matches" onClick={closeMenu}>Fixtures</Link></li>
+            <li><Link to="/matches" onClick={closeMenu}>Results</Link></li>
 
             {/* Future-ready sections */}
-            <li><Link to="/competitions">Major Competitions</Link></li>
-            <li><Link to="/rules">Rules</Link></li>
-            <li><Link to="/board">PNG RFL Board</Link></li>
+            <li><Link to="/competitions" onClick={closeMenu}>Major Competitions</Link></li>
+            <li><Link to="/rules" onClick={closeMenu}>Rules</Link></li>
+            <li><Link to="/board" onClick={closeMenu}>PNG RFL Board</Link></li>
 
-            <li><Link to="/ladder">Ladder</Link></li>
-            <li><Link to="/shop">Shop</Link></li>
-            <li><Link to="/admin">Admin</Link></li>
+            <li><Link to="/ladder" onClick={closeMenu}>Ladder</Link></li>
+            <li><Link to="/shop" onClick={closeMenu}>Shop</Link></li>
+            <li><Link to="/admin" onClick={closeMenu}>Admin</Link></li>
           </ul>
         </nav>
 
         {/* ================= ROUTES ================= */}
-        <Routes>
+        <main key={location.pathname}>
+          <Routes>
 
           {/* ---------- CORE ---------- */}
           <Route path="/" element={<Home />} />
@@ -86,15 +113,15 @@ export default function App() {
             element={<Placeholder title="PNG RFL Board" />}
           />
 
-        </Routes>
+          </Routes>
+        </main>
 
         {/* ================= FOOTER ================= */}
         <footer className="footer">
           <p>© {new Date().getFullYear()} PNG Rugby Football League</p>
         </footer>
 
-      </div>
-    </Router>
+    </div>
   )
 }
 

@@ -1,6 +1,6 @@
 
 .hero {
-height: 80vh;
+height: min(80vh, 720px);
 background-size: cover;
 background-position: center;
 position: relative;
@@ -18,7 +18,7 @@ background: linear-gradient(
 display: flex;
 flex-direction: column;
 justify-content: flex-end;
-padding: 60px;
+padding: clamp(1.5rem, 6vw, 3.75rem);
 color: #ffffff;
 }
 
@@ -85,7 +85,7 @@ margin-bottom: 50px;
 .teams-preview {
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-gap: 40px;
+gap: clamp(1rem, 3vw, 2.5rem);
 max-width: 1100px;
 margin: 0 auto 50px;
 }
@@ -154,7 +154,7 @@ color: #fff;
 
 @media (max-width: 480px) {
 .hero {
-    height: 65vh;
+    height: 62vh;
 }
 
 .hero-overlay h1 {
@@ -167,5 +167,23 @@ color: #fff;
 
 .teams-section {
     padding: 60px 20px;
+}
+
+.teams-preview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.team-preview-card {
+    padding: 18px 10px;
+}
+
+.team-preview-card img {
+    width: 68px;
+}
+
+.btn-primary,
+.btn-outline {
+    padding: 11px 22px;
 }
 }
