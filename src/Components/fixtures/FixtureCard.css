@@ -1,0 +1,36 @@
+.fixture-card {
+    display: grid;
+    gap: 0.5rem;
+    padding: 1.25rem;
+    background: #fff;
+    border-left: 5px solid #e30613;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.fixture-round {
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.fixture-teams {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 1.1rem;
+}
+
+.fixture-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.fixture-score {
+    color: #e30613;
+    font-weight: 800;
+}

@@ -1,0 +1,86 @@
+/* ===============================
+   TEAMS SECTION STYLES
+   =============================== */
+
+.teams-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  padding: 50px 40px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Team Card */
+.team-card {
+  background: linear-gradient(180deg, #0f172a, #020617);
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 24px 20px;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover Effect */
+.team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+}
+
+/* Card Glow Effect */
+.team-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.15), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.team-card:hover::before {
+  opacity: 1;
+}
+
+/* Team Logo */
+.team-logo {
+  width: 0px;
+  height: auto;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.6));
+}
+
+/* Team Name */
+.team-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+/* Team Description */
+.team-card p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  opacity: 0.85;
+}
+
+/* ===============================
+   RESPONSIVE
+   =============================== */
+
+@media (max-width: 768px) {
+  .teams-section {
+    padding: 30px 20px;
+    gap: 18px;
+  }
+
+  .team-card {
+    padding: 20px 16px;
+  }
+
+  .team-logo {
+    width: 75px;
+  }
+}

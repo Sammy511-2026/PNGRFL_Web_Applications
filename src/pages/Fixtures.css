@@ -1,0 +1,15 @@
+.fixtures-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 1rem 5rem;
+}
+
+.fixtures-header {
+    margin-bottom: 2rem;
+}
+
+.fixtures-list {
+    display: grid;
+    gap: 1rem;
+}
+

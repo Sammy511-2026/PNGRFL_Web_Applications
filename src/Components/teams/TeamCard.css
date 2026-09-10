@@ -1,0 +1,36 @@
+.team-card {
+    background: rgba(255,255,255,0.08);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+}
+
+.team-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 26px 20px;
+    text-align: center;
+}
+
+.team-card-logo img {
+    width: 90px;
+    height: auto;
+    margin-bottom: 14px;
+    object-fit: contain;
+}
+
+.team-card-info h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.team-card-meta {
+    font-size: 14px;
+    opacity: 0.75;
+}

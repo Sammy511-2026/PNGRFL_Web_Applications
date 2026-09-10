@@ -1,0 +1,300 @@
+/* ===============================
+   GLOBAL WRAPPER
+================================ */
+.team-details {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-bottom: 4rem;
+    background: #ffffff;
+    color: #111;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* ===============================
+   HERO SECTION
+================================ */
+.team-hero {
+    position: relative;
+    height: 360px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+}
+
+.team-hero-overlay {
+    width: 100%;
+    padding: 2rem;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.85),
+        rgba(0, 0, 0, 0.35),
+        rgba(0, 0, 0, 0)
+    );
+}
+
+.team-logo-large {
+    width: 96px;
+    height: auto;
+    margin-bottom: 0.75rem;
+}
+
+.team-hero h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.team-tagline {
+    margin-top: 0.25rem;
+    color: #ddd;
+    font-size: 1rem;
+}
+
+/* ===============================
+   QUICK STATS
+================================ */
+.team-quick-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    background: #f7f7f7;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.team-quick-stats div {
+    padding: 1rem;
+    text-align: center;
+}
+
+.team-quick-stats span {
+    display: block;
+    font-size: 0.75rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.team-quick-stats strong {
+    display: block;
+    font-size: 1.05rem;
+    margin-top: 0.25rem;
+}
+
+/* ===============================
+   SUB NAVIGATION
+================================ */
+.team-subnav {
+    display: flex;
+    overflow-x: auto;
+    border-bottom: 2px solid #e5e5e5;
+    background: #fff;
+}
+
+.team-subnav a {
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #444;
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+}
+
+.team-subnav a:hover {
+    color: #000;
+}
+
+.team-subnav a.active {
+    color: #000;
+    border-bottom-color: #000;
+}
+
+/* ===============================
+   TAB CONTENT
+================================ */
+.team-tab-content {
+    padding: 2rem 1.25rem;
+}
+
+/* ===============================
+   OVERVIEW
+================================ */
+.overview-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.team-overview h3 {
+    margin-bottom: 0.5rem;
+}
+
+.club-meta {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.club-meta li {
+    padding: 0.35rem 0;
+    font-size: 0.95rem;
+}
+
+/* ===============================
+   FIXTURES TABLE
+================================ */
+.fixtures-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.fixtures-table th,
+.fixtures-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: left;
+}
+
+.fixtures-table th {
+    background: #f3f3f3;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ===============================
+   STAFF
+================================ */
+.staff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.staff-card {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.staff-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+}
+
+.staff-card h4 {
+    margin: 0.25rem 0;
+    font-size: 1rem;
+}
+
+.staff-card span {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* ===============================
+   HONOURS
+================================ */
+.honours-list {
+    list-style: none;
+    padding: 0;
+}
+
+.honours-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* ===============================
+   STATS
+================================ */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.stats-grid div {
+    background: #f7f7f7;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.stats-grid span {
+    display: block;
+    font-size: 0.75rem;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.stats-grid strong {
+    font-size: 1.4rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* ===============================
+   EMPTY STATES
+================================ */
+.empty-state {
+    padding: 2rem;
+    text-align: center;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* ===============================
+   ACTIONS
+================================ */
+.team-actions {
+    padding: 2rem 1.25rem;
+}
+
+.btn-outline {
+    display: inline-block;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid #000;
+    color: #000;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 4px;
+}
+
+.btn-outline:hover {
+    background: #000;
+    color: #fff;
+}
+
+/* ===============================
+   NOT FOUND
+================================ */
+.not-found {
+    padding: 4rem 1rem;
+    text-align: center;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 900px) {
+    .overview-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .team-hero {
+        height: 280px;
+    }
+
+    .team-logo-large {
+        width: 80px;
+    }
+}

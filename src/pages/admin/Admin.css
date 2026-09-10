@@ -1,0 +1,159 @@
+.admin-dashboard,
+.admin-login,
+.admin-signup {
+    --rfl-black: #050505;
+    --rfl-red: #e30613;
+    --rfl-yellow: #ffc20e;
+    --rfl-white: #fff;
+}
+
+.admin-dashboard,
+.admin-login,
+.admin-signup {
+    width: min(100% - 2rem, 1100px);
+    margin: 0 auto;
+    color: #111;
+}
+
+.admin-dashboard {
+    padding: 4rem 0 5rem;
+}
+
+.admin-dashboard h1,
+.admin-login h1,
+.admin-signup h1 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.admin-dashboard > p,
+.admin-login > p,
+.admin-signup > p {
+    color: #666;
+}
+
+.admin-cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 2.5rem 0;
+}
+
+.admin-card {
+    min-height: 130px;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.25rem;
+    background: var(--rfl-black);
+    border-bottom: 5px solid var(--rfl-yellow);
+    color: var(--rfl-white);
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.admin-card:hover {
+    background: var(--rfl-red);
+    transform: translateY(-4px);
+}
+
+.admin-dashboard a,
+.admin-login a,
+.admin-signup a {
+    color: var(--rfl-red);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.admin-dashboard a:hover,
+.admin-login a:hover,
+.admin-signup a:hover {
+    text-decoration: underline;
+}
+
+.admin-login,
+.admin-signup {
+    max-width: 520px;
+    padding: 4rem 0 5rem;
+}
+
+.admin-login form,
+.admin-signup form {
+    display: grid;
+    gap: 1.25rem;
+    margin: 2rem 0 1.5rem;
+    padding: 2rem;
+    background: #fff;
+    border-top: 5px solid var(--rfl-yellow);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+.admin-login label,
+.admin-signup label {
+    display: grid;
+    gap: 0.45rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.admin-login input,
+.admin-signup input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    color: #111;
+    font: inherit;
+}
+
+.admin-login input:focus,
+.admin-signup input:focus {
+    border-color: var(--rfl-red);
+    outline: 2px solid rgba(227, 6, 19, 0.2);
+}
+
+.admin-login button,
+.admin-signup button {
+    border: 0;
+    padding: 0.9rem 1.25rem;
+    background: var(--rfl-red);
+    color: var(--rfl-white);
+    font: inherit;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.admin-login button:hover,
+.admin-signup button:hover {
+    background: var(--rfl-black);
+    box-shadow: inset 0 -4px 0 var(--rfl-yellow);
+}
+
+@media (max-width: 760px) {
+    .admin-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-dashboard,
+    .admin-login,
+    .admin-signup {
+        padding-top: 2.5rem;
+    }
+
+    .admin-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-login form,
+    .admin-signup form {
+        padding: 1.25rem;
+    }
+}
