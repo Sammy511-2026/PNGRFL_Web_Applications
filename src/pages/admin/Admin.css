@@ -19,6 +19,143 @@
     padding: 4rem 0 5rem;
 }
 
+.admin-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.admin-header > a {
+    padding: 0.7rem 1rem;
+    background: var(--rfl-black);
+    color: var(--rfl-white);
+}
+
+.admin-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    margin: 2.5rem 0;
+    background: #ccc;
+}
+
+.admin-summary div {
+    display: grid;
+    gap: 0.25rem;
+    padding: 1.25rem;
+    background: #fff;
+}
+
+.admin-summary strong {
+    font-size: 1.8rem;
+}
+
+.admin-summary span,
+.admin-data-preview span {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.admin-workspace,
+.admin-data-preview {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.admin-tabs {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+}
+
+.admin-tabs button {
+    border: 1px solid #ccc;
+    padding: 0.8rem;
+    background: #fff;
+    text-align: left;
+    font: inherit;
+    font-weight: 700;
+}
+
+.admin-tabs button.active {
+    border-color: var(--rfl-red);
+    background: var(--rfl-red);
+    color: #fff;
+}
+
+.admin-resource-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    padding: 1.5rem;
+    background: #fff;
+    border-top: 5px solid var(--rfl-yellow);
+}
+
+.admin-resource-form h2,
+.admin-resource-form button,
+.admin-resource-form .form-notice {
+    grid-column: 1 / -1;
+}
+
+.admin-resource-form h2 {
+    margin: 0;
+}
+
+.admin-resource-form label {
+    display: grid;
+    gap: 0.4rem;
+    font-weight: 700;
+}
+
+.admin-resource-form input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    font: inherit;
+}
+
+.admin-resource-form button {
+    border: 0;
+    padding: 0.85rem;
+    background: var(--rfl-red);
+    color: #fff;
+    font: inherit;
+    font-weight: 800;
+}
+
+.form-error,
+.form-notice {
+    padding: 0.75rem;
+    background: #fff1f1;
+    color: var(--rfl-red);
+}
+
+.admin-data-preview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.admin-data-preview > div {
+    padding: 1.25rem;
+    background: #fff;
+}
+
+.admin-data-preview h2 {
+    margin-top: 0;
+}
+
+.admin-data-preview p {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border-top: 1px solid #e5e5e5;
+    padding: 0.75rem 0;
+}
+
 .admin-dashboard h1,
 .admin-login h1,
 .admin-signup h1 {
@@ -136,6 +273,20 @@
 }
 
 @media (max-width: 760px) {
+    .admin-header,
+    .admin-workspace,
+    .admin-data-preview {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-header {
+        display: grid;
+    }
+
+    .admin-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .admin-cards {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -149,6 +300,10 @@
     }
 
     .admin-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-resource-form {
         grid-template-columns: 1fr;
     }
 

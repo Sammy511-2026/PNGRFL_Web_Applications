@@ -13,6 +13,7 @@ import Leagues from './pages/Leagues'
 import AdminLogin from './pages/admin/AdminLogin'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminSignup from './pages/admin/AdminSignup'
+import ContentPage from './pages/ContentPage'
 
 /* ================= ASSETS ================= */
 import pngRflLogo from './assets/logos/pngrfl.jpg'
@@ -83,6 +84,7 @@ function AppLayout() {
           {/* ---------- CORE ---------- */}
           <Route path="/" element={<Home />} />
           <Route path="/teams" element={<Teams />} />
+          <Route path="/teams/:teamId/:tab" element={<TeamDetails />} />
           <Route path="/teams/:teamId" element={<TeamDetails />} />
 
           {/* ---------- COMPETITION ---------- */}
@@ -102,15 +104,15 @@ function AppLayout() {
           {/* ---------- PLACEHOLDERS (SAFE) ---------- */}
           <Route
             path="/competitions"
-            element={<Placeholder title="Major Competitions" />}
+            element={<ContentPage page="competitions" />}
           />
           <Route
             path="/rules"
-            element={<Placeholder title="Rules & Regulations" />}
+            element={<ContentPage page="rules" />}
           />
           <Route
             path="/board"
-            element={<Placeholder title="PNG RFL Board" />}
+            element={<ContentPage page="board" />}
           />
 
           </Routes>
@@ -125,12 +127,3 @@ function AppLayout() {
   )
 }
 
-/* ================= TEMP PLACEHOLDER ================= */
-function Placeholder({ title }) {
-  return (
-    <main className="placeholder-page">
-      <h1>{title}</h1>
-      <p>Content will be published soon.</p>
-    </main>
-  )
-}

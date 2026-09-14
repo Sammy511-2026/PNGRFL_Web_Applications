@@ -1,17 +1,11 @@
-import { teams } from '../data/Teams'
+import { getTeams } from '../api/resources'
 import TeamCard from '../Components/teams/TeamCard'
+import { useApi } from '../hooks/useApi'
+import RequestState from '../Components/ui/RequestState'
 import './Teams.css'
 
 export default function Teams() {
-
-    // Safety check (prevents crash if teams is undefined/null)
-    if (!Array.isArray(teams) || teams.length === 0) {
-        return (
-            <main className="teams-page">
-                <p className="empty-state">No teams available.</p>
-            </main>
-        )
-    }
+    const { data: teams, isLoading, error, reload } = useApi(getTeams, [])
 
     return (
         <main className="teams-page">
@@ -25,8 +19,11 @@ export default function Teams() {
                 </p>
             </header>
 
+            <RequestState isLoading={isLoading} error={error} onRetry={reload} />
+
             {/* ================= TEAMS GRID ================= */}
-            <section
+            {!isLoading && !error && teams.length === 0 && <p className="empty-state">No teams available.</p>}
+            {teams.length > 0 && <section
                 className="teams-grid"
                 aria-label="PNG RFL Clubs"
             >
@@ -36,7 +33,7 @@ export default function Teams() {
                         team={team}
                     />
                 ))}
-            </section>
+            </section>}
 
         </main>
     )

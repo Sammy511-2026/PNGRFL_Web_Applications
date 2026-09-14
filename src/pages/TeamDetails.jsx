@@ -1,7 +1,10 @@
+import { useCallback } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { teams } from '../data/Teams'
+import { getTeamById } from '../api/resources'
 import PlayersList from '../Components/teams/PlayersList'
 import TeamSkeleton from '../Components/ui/TeamSkeleton'
+import { useApi } from '../hooks/useApi'
+import RequestState from '../Components/ui/RequestState'
 import './TeamDetails.css'
 
 const TABS = [
@@ -17,11 +20,15 @@ const TABS = [
 export default function TeamDetails() {
     const { teamId, tab } = useParams()
     const navigate = useNavigate()
+    const loadTeam = useCallback(() => getTeamById(teamId), [teamId])
+    const { data: rawTeam, isLoading, error, reload } = useApi(loadTeam, null)
 
     const activeTab = tab || 'overview'
 
-    const rawTeam = teams.find(t => t.id === teamId)
-
+    if (isLoading) return <main className="page"><TeamSkeleton /></main>
+    if (error) {
+        return <main className="page"><RequestState isLoading={false} error={error} onRetry={reload} /></main>
+    }
     if (!rawTeam) {
         return <p className="not-found">Team not found</p>
     }
@@ -48,9 +55,6 @@ export default function TeamDetails() {
         captain: '',
         ...rawTeam
     }
-
-    const loading = false
-    if (loading) return <TeamSkeleton />
 
     return (
         <div className="team-details">

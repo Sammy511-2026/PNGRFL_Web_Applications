@@ -1,14 +1,38 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { signup } from '../../api/resources'
+import { setAuthToken } from '../../api/client'
 import './Admin.css'
 
 export default function AdminSignup() {
-    function handleSubmit(event) {
+    const navigate = useNavigate()
+    const [error, setError] = useState('')
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
+    async function handleSubmit(event) {
         event.preventDefault()
+        setError('')
+        setIsSubmitting(true)
+        const formData = new FormData(event.currentTarget)
+        try {
+            const result = await signup({
+                name: formData.get('name'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+            })
+            setAuthToken(result.token)
+            navigate('/admin/dashboard')
+        } catch (requestError) {
+            setError(requestError.message)
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     return (
         <main className="admin-signup">
             <h1>Create Admin Account</h1>
+            {error && <p className="form-error" role="alert">{error}</p>}
 
             <form onSubmit={handleSubmit}>
                 <label>
@@ -26,7 +50,7 @@ export default function AdminSignup() {
                     <input type="password" name="password" required minLength={8} />
                 </label>
 
-                <button type="submit">Sign up</button>
+                <button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Creating account...' : 'Sign up'}</button>
             </form>
 
             <p>

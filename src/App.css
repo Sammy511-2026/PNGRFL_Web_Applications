@@ -98,6 +98,79 @@ body {
   padding: 4rem 0;
 }
 
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: #e30613;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.status-message {
+  padding: 1rem;
+  background: #f2f2f2;
+  border-left: 4px solid #ffc20e;
+}
+
+.status-message-error {
+  border-left-color: #e30613;
+}
+
+.status-message button {
+  border: 0;
+  padding: 0.55rem 0.8rem;
+  background: #050505;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+}
+
+.content-page {
+  width: min(100% - 2rem, 1100px);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 7rem) 0;
+}
+
+.content-page h1 {
+  max-width: 720px;
+  margin: 0;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.content-intro {
+  max-width: 620px;
+  margin: 1.5rem 0 3rem;
+  font-size: 1.2rem;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.content-panel {
+  min-height: 160px;
+  padding: 1.5rem;
+  border-top: 5px solid #ffc20e;
+  background: #050505;
+  color: #fff;
+}
+
+.content-panel h2 {
+  margin-top: 0;
+  font-size: 1.25rem;
+}
+
+@media (max-width: 700px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 900px) {
   .navbar {
     flex-wrap: wrap;

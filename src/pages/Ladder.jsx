@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react'
-import { getLadder } from '../api/teamsApi'
+import { getLadder } from '../api/resources'
+import { useApi } from '../hooks/useApi'
+import RequestState from '../Components/ui/RequestState'
 
 export default function Ladder() {
-    const [ladder, setLadder] = useState([])
-
-    useEffect(() => {
-        getLadder().then(setLadder)
-    }, [])
+    const { data: ladder, isLoading, error, reload } = useApi(getLadder, [])
 
     return (
         <div className="page">
             <h1>PNG RFL Ladder</h1>
 
-            <table className="fixtures-table">
+            <RequestState isLoading={isLoading} error={error} onRetry={reload} />
+
+            {!isLoading && !error && ladder.length === 0 && <p className="empty-state">The ladder will appear when the season begins.</p>}
+            {ladder.length > 0 && <table className="fixtures-table">
                 <thead>
                     <tr>
                         <th>Pos</th>
@@ -31,7 +31,7 @@ export default function Ladder() {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </table>}
         </div>
     )
 }

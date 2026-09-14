@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { teams } from '../data/Teams'
+import { getTeams } from '../api/resources'
+import { useApi } from '../hooks/useApi'
+import RequestState from '../Components/ui/RequestState'
 import './Home.css'
 
 
@@ -14,6 +16,7 @@ import action8 from '../assets/hero/action8.jpg'
 import action10 from '../assets/hero/action10.jpg'
 
 export default function Home() {
+    const { data: teams, isLoading, error, reload } = useApi(getTeams, [])
     const heroSlides = [
         action1,
         action2,
@@ -60,6 +63,8 @@ export default function Home() {
             {/* CLUBS PREVIEW */}
             <section className="teams-section">
                 <h2>PNG RFL Clubs</h2>
+
+                <RequestState isLoading={isLoading} error={error} onRetry={reload} />
 
                 <div className="teams-preview">
                     {teams.slice(0, 6).map(team => (

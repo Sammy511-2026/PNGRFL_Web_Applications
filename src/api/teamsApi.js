@@ -1,7 +1,1 @@
-export function getTeamById() {
-    return Promise.resolve(null)
-}
-
-export function getLadder() {
-    return Promise.resolve([])
-}
+export { getTeamById, getLadder } from './resources'
