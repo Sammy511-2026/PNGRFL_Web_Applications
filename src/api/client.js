@@ -14,9 +14,27 @@ export function getAuthToken() {
     return window.localStorage.getItem('pngrfl_auth_token')
 }
 
+export function getAuthUser() {
+    try {
+        return JSON.parse(window.localStorage.getItem('pngrfl_auth_user') || 'null')
+    } catch {
+        return null
+    }
+}
+
 export function setAuthToken(token) {
     if (token) window.localStorage.setItem('pngrfl_auth_token', token)
     else window.localStorage.removeItem('pngrfl_auth_token')
+}
+
+export function setAuthUser(user) {
+    if (user) window.localStorage.setItem('pngrfl_auth_user', JSON.stringify(user))
+    else window.localStorage.removeItem('pngrfl_auth_user')
+}
+
+export function clearAuthSession() {
+    setAuthToken(null)
+    setAuthUser(null)
 }
 
 export async function request(path, options = {}) {

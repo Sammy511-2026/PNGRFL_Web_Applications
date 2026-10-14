@@ -1,59 +1,158 @@
-body {
-  margin: 0;
-  font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+.app-container {
+  min-height: 100vh;
+  overflow-x: hidden;
   background: var(--bg);
   color: var(--text);
 }
 
-.app-container {
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
 .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
-  background: #000;
-  padding: 12px clamp(1rem, 4vw, 2.5rem);
-  position: relative;
-  z-index: 10;
+  gap: 1.5rem;
+  padding: 0.9rem clamp(1rem, 4vw, 2.5rem);
+  background: linear-gradient(90deg, var(--navy-strong) 0%, var(--navy) 40%, var(--navy-strong) 100%);
+  border-bottom: 4px solid var(--red);
+  box-shadow: 0 14px 32px rgba(4, 12, 20, 0.22);
+}
+
+.navbar-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
 }
 
 .navbar img {
-  height: 48px;
+  height: 50px;
   width: auto;
   display: block;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.25));
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 1.2rem 1.4rem;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
 .nav-links a {
-  color: #fff;
-  text-decoration: none;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  font-weight: 600;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-size: 0.92rem;
+  position: relative;
+  color: #edf4ff;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0;
+  transition: color 0.2s ease;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.2rem;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.2s ease;
 }
 
 .nav-links a:hover,
 .nav-links a:focus-visible {
-  color: #ffc20e;
+  color: var(--gold);
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown summary {
+  color: #edf4ff;
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  list-style: none;
+  text-transform: uppercase;
+}
+
+.nav-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-dropdown summary::after {
+  content: "⌄";
+  margin-left: 0.4rem;
+  color: var(--gold);
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.8rem);
+  left: -1rem;
+  z-index: 5;
+  display: grid;
+  min-width: 250px;
+  padding: 0.5rem 1rem;
+  border-top: 3px solid var(--gold);
+  background: var(--navy-strong);
+  box-shadow: 0 14px 32px rgba(4, 12, 20, 0.3);
+  list-style: none;
+}
+
+.nav-dropdown-menu a {
+  display: block;
+  padding: 0.75rem 0;
+}
+
+.nav-dropdown-menu a,
+.nav-cup-dropdown > details > summary {
+  margin: 0.25rem 0;
+  padding: 0.65rem 0.75rem;
+  border-radius: 6px;
+  background: var(--gold);
+  color: var(--navy-strong);
+}
+
+.nav-dropdown-menu a:hover,
+.nav-dropdown-menu a:focus-visible {
+  background: #ffe08b;
+  color: var(--navy-strong);
+}
+
+.nav-cup-dropdown > details > summary::after {
+  color: var(--navy-strong);
+}
+
+.nav-cup-dropdown > details > summary {
+  padding: 0.75rem 0;
+}
+
+.nav-cup-dropdown ul {
+  margin: 0;
+  padding: 0 0 0 0.9rem;
+  list-style: none;
+}
+
+.nav-cup-dropdown ul a {
+  padding: 0.55rem 0;
+  font-size: 0.7rem;
 }
 
 .menu-toggle {
@@ -64,10 +163,12 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.35);
   background: transparent;
   color: #fff;
+  border-radius: 10px;
 }
 
 .menu-toggle span {
   display: block;
+  width: 100%;
   height: 2px;
   margin: 5px 0;
   background: currentColor;
@@ -86,64 +187,74 @@ body {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-.page {
-  width: min(100% - 2rem, 1100px);
+.page,
+.placeholder-page,
+.content-page,
+.teams-page,
+.fixtures-page,
+.leagues-page,
+.shop-page,
+.match-centre-page {
+  width: min(100% - 2rem, 1180px);
   margin: 0 auto;
-  padding: clamp(2rem, 6vw, 4rem) 0;
-}
-
-.placeholder-page {
-  width: min(100% - 2rem, 1100px);
-  margin: 0 auto;
-  padding: 4rem 0;
+  padding: clamp(2.25rem, 5vw, 4.5rem) 0;
 }
 
 .eyebrow {
   margin: 0 0 0.75rem;
-  color: #e30613;
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  color: var(--red);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .status-message {
-  padding: 1rem;
-  background: #f2f2f2;
-  border-left: 4px solid #ffc20e;
+  padding: 1rem 1.15rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-left: 4px solid var(--gold);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
 }
 
 .status-message-error {
-  border-left-color: #e30613;
+  border-left-color: var(--red);
 }
 
 .status-message button {
   border: 0;
-  padding: 0.55rem 0.8rem;
-  background: #050505;
+  padding: 0.7rem 1rem;
+  background: var(--navy);
   color: #fff;
   font: inherit;
-  font-weight: 700;
+  font-weight: 800;
+  border-radius: 999px;
 }
 
-.content-page {
-  width: min(100% - 2rem, 1100px);
-  margin: 0 auto;
-  padding: clamp(3rem, 8vw, 7rem) 0;
-}
-
-.content-page h1 {
-  max-width: 720px;
+.content-page h1,
+.page h1,
+.teams-header h1,
+.fixtures-page h1,
+.leagues-page h1,
+.shop-page h1,
+.match-centre-page h1 {
   margin: 0;
-  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-size: clamp(2.3rem, 6vw, 4.5rem);
   line-height: 0.95;
+  letter-spacing: -0.06em;
   text-transform: uppercase;
+  color: var(--navy-strong);
 }
 
-.content-intro {
-  max-width: 620px;
-  margin: 1.5rem 0 3rem;
-  font-size: 1.2rem;
+.content-intro,
+.teams-header p,
+.leagues-page p,
+.shop-page p,
+.match-centre-page p {
+  max-width: 42rem;
+  margin: 1.1rem 0 2.5rem;
+  font-size: 1.08rem;
+  color: var(--muted);
 }
 
 .content-grid {
@@ -153,21 +264,130 @@ body {
 }
 
 .content-panel {
-  min-height: 160px;
+  min-height: 180px;
   padding: 1.5rem;
-  border-top: 5px solid #ffc20e;
-  background: #050505;
+  background: linear-gradient(180deg, #0d1b2a 0%, #071421 100%);
   color: #fff;
+  border-top: 5px solid var(--gold);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
 }
 
 .content-panel h2 {
   margin-top: 0;
-  font-size: 1.25rem;
+  margin-bottom: 0.65rem;
+  font-size: 1.3rem;
 }
 
-@media (max-width: 700px) {
-  .content-grid {
-    grid-template-columns: 1fr;
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem 1.5rem;
+  padding: 1.35rem clamp(1rem, 4vw, 2.5rem);
+  background: linear-gradient(180deg, #06131f 0%, #040d1b 100%);
+  color: rgba(237, 244, 255, 0.8);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer p {
+  margin: 0;
+}
+
+@media (min-width: 901px) {
+  .navbar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    display: flex;
+    width: 188px;
+    height: 100vh;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 2rem;
+    overflow-y: auto;
+    padding: 1.5rem 1rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 0;
+    background: #090d0b;
+    box-shadow: 8px 0 24px rgba(4, 12, 20, 0.16);
+  }
+
+  .navbar-logo {
+    min-width: 0;
+    margin: 0 auto;
+  }
+
+  .navbar img {
+    height: 74px;
+  }
+
+  .nav-links,
+  .nav-links.is-open {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 0.15rem;
+  }
+
+  .nav-links > li {
+    width: 100%;
+  }
+
+  .nav-links > li > a,
+  .nav-dropdown > details > summary {
+    display: block;
+    padding: 0.7rem 0.55rem;
+    font-size: 0.72rem;
+    text-align: left;
+  }
+
+  .nav-links a::after {
+    display: none;
+  }
+
+  .nav-dropdown summary::after {
+    float: right;
+  }
+
+  .nav-dropdown-menu {
+    position: static;
+    min-width: 0;
+    gap: 0;
+    padding: 0 0.5rem 0.4rem;
+    border-top: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .nav-dropdown-menu > li {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-dropdown-menu a,
+  .nav-cup-dropdown > details > summary {
+    display: block;
+    padding: 0.65rem 0.4rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+  }
+
+  .nav-cup-dropdown ul {
+    padding: 0 0 0.4rem 0.8rem;
+  }
+
+  .nav-cup-dropdown ul a {
+    padding: 0.5rem 0.3rem;
+    font-size: 0.65rem;
+  }
+
+  .app-container > main,
+  .app-container > .footer {
+    margin-left: 188px;
   }
 }
 
@@ -194,13 +414,35 @@ body {
   }
 
   .nav-links li {
-    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .nav-dropdown-menu {
+    position: static;
+    min-width: 0;
+    padding: 0 0.75rem;
+    border-top: 0;
+    box-shadow: none;
+  }
+
+  .nav-dropdown-menu li {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-cup-dropdown ul {
+    padding-left: 0.75rem;
   }
 
   .nav-links a {
     display: block;
-    padding: 0.8rem 0.25rem;
-    font-size: 1rem;
+    padding: 0.8rem 0.2rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .content-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -210,25 +452,57 @@ body {
   }
 
   .page,
-  .placeholder-page {
-    width: min(100% - 1.5rem, 1100px);
+  .placeholder-page,
+  .content-page,
+  .teams-page,
+  .fixtures-page,
+  .leagues-page,
+  .shop-page,
+  .match-centre-page {
+    width: min(100% - 1.25rem, 1180px);
   }
 }
 
 .hero {
-  height: 80vh;
+  position: relative;
+  min-height: 78vh;
   background-size: cover;
   background-position: center;
-  position: relative;
+  background-color: var(--navy-strong);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 13, 20, 0.3) 0%, rgba(8, 13, 20, 0.8) 100%);
 }
 
 .hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,.7), rgba(0,0,0,.2));
+  position: relative;
+  z-index: 1;
   display: flex;
+  min-height: 78vh;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 60px;
+  padding: clamp(2rem, 6vw, 4.5rem);
   color: #fff;
+}
+
+.hero-overlay h1 {
+  margin: 0;
+  font-size: clamp(2.8rem, 7vw, 6.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.08em;
+  max-width: 700px;
+  text-transform: uppercase;
+}
+
+.hero-overlay p {
+  margin: 1rem 0 0;
+  max-width: 520px;
+  font-size: clamp(1rem, 2vw, 1.6rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
 }

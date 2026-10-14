@@ -6,13 +6,14 @@ import Home from './pages/Home'
 import Teams from './pages/Teams'
 import TeamDetails from './pages/TeamDetails'
 import MatchCentre from './pages/MatchCentre'
+import MatchDraw from './pages/MatchDraw'
 import Ladder from './pages/Ladder'
 import Shop from './pages/Shop'
 import Fixtures from './pages/Fixtures'
 import Leagues from './pages/Leagues'
 import AdminLogin from './pages/admin/AdminLogin'
 import AdminDashboard from './pages/admin/AdminDashboard'
-import AdminSignup from './pages/admin/AdminSignup'
+/*import AdminSignup from './pages/admin/AdminSignup'/*
 import ContentPage from './pages/ContentPage'
 
 /* ================= ASSETS ================= */
@@ -60,14 +61,31 @@ function AppLayout() {
           <ul id="primary-navigation" className={`nav-links${isMenuOpen ? ' is-open' : ''}`}>
             <li><Link to="/" onClick={closeMenu}>Home</Link></li>
 
-            <li><Link to="/teams" onClick={closeMenu}>Teams</Link></li>
+            <li className="nav-dropdown">
+              <details>
+                <summary>Major Competitions</summary>
+                <ul className="nav-dropdown-menu">
+                  <li className="nav-cup-dropdown">
+                    <details>
+                      <summary>Digicel ExxonMobil Cup</summary>
+                      <ul>
+                        <li><Link to="/fixtures?competition=Digicel%20ExxonMobil%20Cup" onClick={closeMenu}>Cup draw and stats</Link></li>
+                        <li><Link to="/fixtures?competition=Women%E2%80%99s%20Rugby%20League" onClick={closeMenu}>Women’s Competition</Link></li>
+                        <li><Link to="/teams" onClick={closeMenu}>Teams</Link></li>
+                      </ul>
+                    </details>
+                  </li>
+                  <li><Link to="/fixtures?competition=National%20Schoolboys%20Championship" onClick={closeMenu}>National Schoolboys Championship</Link></li>
+                </ul>
+              </details>
+            </li>
 
             {/* Match Centre handles Fixtures & Results */}
-            <li><Link to="/matches" onClick={closeMenu}>Fixtures</Link></li>
-            <li><Link to="/matches" onClick={closeMenu}>Results</Link></li>
+            <li><Link to="/matches" onClick={closeMenu}>Draw & Results</Link></li>
+            <li><Link to="/leagues" onClick={closeMenu}>Leagues</Link></li>
 
             {/* Future-ready sections */}
-            <li><Link to="/competitions" onClick={closeMenu}>Major Competitions</Link></li>
+            <li><Link to="/fixtures" onClick={closeMenu}>All Fixtures</Link></li>
             <li><Link to="/rules" onClick={closeMenu}>Rules</Link></li>
             <li><Link to="/board" onClick={closeMenu}>PNG RFL Board</Link></li>
 
@@ -89,6 +107,7 @@ function AppLayout() {
 
           {/* ---------- COMPETITION ---------- */}
           <Route path="/matches" element={<MatchCentre />} />
+          <Route path="/matches/:matchId" element={<MatchDraw />} />
           <Route path="/fixtures" element={<Fixtures />} />
           <Route path="/leagues" element={<Leagues />} />
           <Route path="/ladder" element={<Ladder />} />
@@ -126,4 +145,3 @@ function AppLayout() {
     </div>
   )
 }
-

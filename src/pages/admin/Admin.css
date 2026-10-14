@@ -32,9 +32,25 @@
     color: var(--rfl-white);
 }
 
+.admin-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.admin-header-actions button {
+    border: 1px solid #111;
+    padding: 0.65rem 0.9rem;
+    background: #fff;
+    color: #111;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
 .admin-summary {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 1px;
     margin: 2.5rem 0;
     background: #ccc;
@@ -111,12 +127,50 @@
     font-weight: 700;
 }
 
-.admin-resource-form input {
+.admin-resource-form input,
+.admin-resource-form select,
+.admin-resource-form textarea {
     box-sizing: border-box;
     width: 100%;
     padding: 0.75rem;
     border: 1px solid #ccc;
+    border-radius: 0;
+    color: #111;
     font: inherit;
+}
+
+.admin-resource-form input:focus,
+.admin-resource-form select:focus,
+.admin-resource-form textarea:focus {
+    border-color: var(--rfl-red);
+    outline: 2px solid rgba(227, 6, 19, 0.2);
+}
+
+.admin-resource-form textarea {
+    resize: vertical;
+}
+
+.admin-form-wide {
+    grid-column: 1 / -1;
+}
+
+.admin-stats-fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+    min-width: 0;
+    margin: 0;
+    padding: 1rem;
+    border: 1px solid #ccc;
+}
+
+.admin-stats-fields legend {
+    padding: 0 0.4rem;
+    font-weight: 800;
+}
+
+.admin-stats-fields label {
+    text-transform: capitalize;
 }
 
 .admin-resource-form button {
@@ -154,6 +208,29 @@
     gap: 1rem;
     border-top: 1px solid #e5e5e5;
     padding: 0.75rem 0;
+}
+
+.admin-league-preview {
+    margin: 2rem 0;
+    padding: 1.25rem;
+    background: #fff;
+}
+
+.admin-league-preview h2 {
+    margin-top: 0;
+}
+
+.admin-league-preview > p {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border-top: 1px solid #e5e5e5;
+    padding: 0.75rem 0;
+}
+
+.admin-league-preview > p span {
+    color: #666;
+    text-align: right;
 }
 
 .admin-dashboard h1,
@@ -283,6 +360,10 @@
         display: grid;
     }
 
+    .admin-header-actions {
+        flex-wrap: wrap;
+    }
+
     .admin-summary {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -307,6 +388,14 @@
         grid-template-columns: 1fr;
     }
 
+    .admin-form-wide {
+        grid-column: auto;
+    }
+
+    .admin-stats-fields {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .admin-login form,
     .admin-signup form {
         padding: 1.25rem;
@@ -316,5 +405,318 @@
     .admin-login,
     .admin-signup {
         width: min(100% - 1.5rem, 1100px);
+    }
+
+    .admin-league-preview > p {
+        display: grid;
+    }
+
+    .admin-league-preview > p span {
+        text-align: left;
+    }
+}
+
+.admin-dashboard {
+    --admin-navy: #071421;
+    --admin-navy-strong: #051320;
+    --admin-red: #d71920;
+    --admin-gold: #f7cf62;
+    --admin-line: #dfe6f0;
+    --admin-muted: #53627a;
+    width: min(100% - 2rem, 1180px);
+    padding: clamp(2rem, 4vw, 3.5rem) 0 5rem;
+}
+
+.admin-dashboard .admin-header {
+    align-items: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--admin-line);
+}
+
+.admin-dashboard .admin-header h1 {
+    margin: 0;
+    color: var(--admin-navy-strong);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    letter-spacing: -0.06em;
+}
+
+.admin-dashboard .admin-header > div:first-child > p:last-child {
+    margin: 0.75rem 0 0;
+    color: var(--admin-muted);
+}
+
+.admin-dashboard .admin-header-actions {
+    flex-shrink: 0;
+}
+
+.admin-dashboard .admin-header-actions a,
+.admin-dashboard .admin-header-actions button {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--admin-navy);
+    background: var(--admin-navy);
+    color: #fff;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.admin-dashboard .admin-header-actions button {
+    border-color: var(--admin-line);
+    background: #fff;
+    color: var(--admin-navy);
+}
+
+.admin-dashboard .admin-header-actions a:hover,
+.admin-dashboard .admin-header-actions button:hover {
+    border-color: var(--admin-red);
+    background: var(--admin-red);
+    color: #fff;
+    text-decoration: none;
+}
+
+.admin-dashboard .admin-summary {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0 2rem;
+    background: transparent;
+}
+
+.admin-dashboard .admin-summary > div {
+    min-width: 0;
+    gap: 0.4rem;
+    padding: 1.25rem 1.4rem;
+    border: 1px solid var(--admin-line);
+    border-top: 4px solid var(--admin-gold);
+    background: #fff;
+    box-shadow: 0 10px 24px rgba(8, 14, 25, 0.06);
+}
+
+.admin-dashboard .admin-summary strong {
+    overflow-wrap: anywhere;
+    color: var(--admin-navy-strong);
+    font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+    line-height: 1.15;
+}
+
+.admin-dashboard .admin-summary span {
+    color: var(--admin-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.admin-dashboard .admin-workspace {
+    display: block;
+    margin: 0 0 2rem;
+}
+
+.admin-dashboard .admin-tabs {
+    display: flex;
+    align-items: stretch;
+    gap: 0.35rem;
+    overflow-x: auto;
+    border-bottom: 2px solid var(--admin-line);
+}
+
+.admin-dashboard .admin-tabs button {
+    flex: 0 0 auto;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    padding: 0.9rem 1rem;
+    background: transparent;
+    color: var(--admin-muted);
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.admin-dashboard .admin-tabs button:hover,
+.admin-dashboard .admin-tabs button.active {
+    border-bottom-color: var(--admin-red);
+    background: #fff;
+    color: var(--admin-navy-strong);
+}
+
+.admin-dashboard .admin-tabs button:focus-visible,
+.admin-dashboard .admin-resource-form button:focus-visible {
+    outline: 3px solid var(--admin-gold);
+    outline-offset: 2px;
+}
+
+.admin-dashboard .admin-resource-form {
+    gap: 1.1rem 1.25rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--admin-line);
+    border-top: 4px solid var(--admin-red);
+    background: #fff;
+    box-shadow: 0 14px 34px rgba(8, 14, 25, 0.08);
+}
+
+.admin-dashboard .admin-resource-form h2,
+.admin-dashboard .admin-data-preview h2,
+.admin-dashboard .admin-league-preview h2 {
+    color: var(--admin-navy-strong);
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+    letter-spacing: -0.025em;
+}
+
+.admin-dashboard .admin-resource-form label {
+    min-width: 0;
+    color: var(--admin-navy);
+    font-size: 0.88rem;
+}
+
+.admin-dashboard .admin-resource-form input,
+.admin-dashboard .admin-resource-form select,
+.admin-dashboard .admin-resource-form textarea {
+    min-width: 0;
+    border-color: #cbd5e1;
+    border-radius: 3px;
+    background: #fff;
+}
+
+.admin-dashboard .admin-resource-form input:focus,
+.admin-dashboard .admin-resource-form select:focus,
+.admin-dashboard .admin-resource-form textarea:focus {
+    border-color: var(--admin-red);
+    outline: 3px solid rgba(215, 25, 32, 0.14);
+}
+
+.admin-dashboard .admin-stats-fields {
+    border-color: var(--admin-line);
+    background: #f8fafc;
+}
+
+.admin-dashboard .admin-resource-form > button {
+    justify-self: start;
+    min-height: 48px;
+    padding: 0.85rem 1.4rem;
+    background: linear-gradient(180deg, var(--admin-red), #b8131a);
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.admin-dashboard .admin-resource-form > button:hover:not(:disabled) {
+    background: var(--admin-navy);
+}
+
+.admin-dashboard .admin-resource-form > button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.admin-dashboard .admin-data-preview {
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.admin-dashboard .admin-data-preview > div,
+.admin-dashboard .admin-league-preview {
+    min-width: 0;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--admin-line);
+    background: #fff;
+    box-shadow: 0 10px 24px rgba(8, 14, 25, 0.06);
+}
+
+.admin-dashboard .admin-league-preview {
+    margin: 2rem 0 0;
+}
+
+.admin-dashboard .admin-data-preview h2,
+.admin-dashboard .admin-league-preview h2 {
+    margin: 0 0 0.75rem;
+}
+
+.admin-dashboard .admin-data-preview p,
+.admin-dashboard .admin-league-preview > p {
+    align-items: flex-start;
+    margin: 0;
+    border-top: 1px solid var(--admin-line);
+    color: var(--admin-navy);
+    font-size: 0.9rem;
+}
+
+.admin-dashboard .admin-data-preview p span,
+.admin-dashboard .admin-league-preview > p span {
+    color: var(--admin-muted);
+    font-size: 0.82rem;
+}
+
+.admin-dashboard > .form-error {
+    margin-top: 1.5rem;
+    border-left: 4px solid var(--admin-red);
+    background: #fff;
+}
+
+.admin-dashboard .form-notice {
+    margin: 0;
+    border-left: 4px solid var(--admin-gold);
+    background: #f8fafc;
+    color: var(--admin-navy);
+}
+
+@media (max-width: 760px) {
+    .admin-dashboard .admin-header {
+        align-items: flex-start;
+    }
+
+    .admin-dashboard .admin-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-dashboard .admin-data-preview {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-dashboard {
+        width: min(100% - 1.5rem, 1180px);
+    }
+
+    .admin-dashboard .admin-summary {
+        gap: 0.65rem;
+    }
+
+    .admin-dashboard .admin-summary > div {
+        padding: 1rem;
+    }
+
+    .admin-dashboard .admin-header-actions {
+        width: 100%;
+    }
+
+    .admin-dashboard .admin-header-actions a,
+    .admin-dashboard .admin-header-actions button {
+        flex: 1;
+    }
+
+    .admin-dashboard .admin-resource-form {
+        gap: 0.9rem;
+    }
+
+    .admin-dashboard .admin-resource-form > button {
+        width: 100%;
+    }
+
+    .admin-dashboard .admin-stats-fields {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-dashboard .admin-data-preview > div,
+    .admin-dashboard .admin-league-preview {
+        padding: 1rem;
     }
 }

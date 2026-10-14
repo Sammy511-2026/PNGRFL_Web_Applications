@@ -1,0 +1,180 @@
+.fixture-schedule {
+    min-height: 70vh;
+    padding: 0;
+    background: #f5f5f5;
+}
+
+.fixture-schedule-heading {
+    padding: 1.25rem clamp(1rem, 3.5vw, 3rem);
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.fixture-schedule .fixture-schedule-heading h1 {
+    margin: 0;
+    color: #171717;
+    font-size: clamp(1.65rem, 2.5vw, 2rem);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.fixture-schedule-heading h1 span {
+    color: #00c853;
+}
+
+.fixture-schedule .fixture-schedule-heading p {
+    margin: 0.5rem 0 0;
+    color: #676767;
+}
+
+.fixture-schedule-content {
+    width: min(100% - 2rem, 1168px);
+    margin: 0 auto;
+    padding: 1.5rem 0 3rem;
+}
+
+.fixture-filters {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin: 0 0 1.5rem;
+}
+
+.fixture-filter-control,
+.fixture-round-control {
+    min-width: 0;
+    min-height: 42px;
+    border: 1px solid #e5e5e5;
+    border-radius: 9px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.fixture-filter-control {
+    display: flex;
+    flex: 1 1 190px;
+}
+
+.fixture-filter-control select,
+.fixture-round-control select {
+    width: 100%;
+    min-width: 0;
+    padding: 0.65rem 0.85rem;
+    border: 0;
+    outline-color: #00c853;
+    border-radius: inherit;
+    background: transparent;
+    color: #242424;
+    font: inherit;
+}
+
+.fixture-round-control {
+    display: flex;
+    flex: 1.1 1 220px;
+    align-items: center;
+}
+
+.fixture-round-control button {
+    flex: 0 0 42px;
+    height: 40px;
+    border: 0;
+    background: transparent;
+    color: #333;
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+
+.fixture-round-control button:disabled {
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+.fixture-round-control select {
+    text-align: center;
+}
+
+.fixture-calendar-button {
+    flex: 0 0 auto;
+    min-height: 42px;
+    margin-left: auto;
+    padding: 0.65rem 1rem;
+    border: 0;
+    border-radius: 8px;
+    background: #00c853;
+    color: #07160c;
+    font: inherit;
+    font-weight: 800;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.fixture-calendar-button:hover,
+.fixture-calendar-button:focus-visible {
+    background: #00b94b;
+}
+
+.fixture-calendar-button:disabled {
+    background: #a5e8bf;
+    cursor: not-allowed;
+}
+
+.fixture-schedule .fixtures-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.fixture-schedule .status-message,
+.fixture-schedule .empty-state {
+    margin: 0 0 1rem;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-width: 900px) {
+    .fixture-filters {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .fixture-filter-control,
+    .fixture-round-control {
+        width: 100%;
+    }
+
+    .fixture-calendar-button {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .fixture-schedule-content {
+        width: min(100% - 1.25rem, 1168px);
+    }
+
+    .fixture-filters {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media print {
+    .fixture-schedule-heading p,
+    .fixture-filters,
+    .fixture-details-link {
+        display: none;
+    }
+
+    .fixture-schedule {
+        background: #fff;
+    }
+}

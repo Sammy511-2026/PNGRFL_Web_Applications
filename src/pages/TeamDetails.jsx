@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { getTeamById } from '../api/resources'
+import { getFixtures, getLadder, getTeamById } from '../api/resources'
 import PlayersList from '../Components/teams/PlayersList'
 import TeamSkeleton from '../Components/ui/TeamSkeleton'
 import { useApi } from '../hooks/useApi'
@@ -17,11 +17,51 @@ const TABS = [
     { key: 'stats', label: 'Stats' }
 ]
 
+function belongsToTeam(value, team) {
+    if (!value || !team) return false
+    const normalized = String(value).trim().toLowerCase()
+    return normalized === String(team.id).toLowerCase() || normalized === team.name.trim().toLowerCase()
+}
+
+function getScore(match) {
+    if (match.homeScore !== undefined && match.awayScore !== undefined) {
+        const scores = [Number(match.homeScore), Number(match.awayScore)]
+        return scores.every(Number.isFinite) ? scores : null
+    }
+    const parts = String(match.score || match.result || '').match(/^\s*(\d+)\s*[-:]\s*(\d+)\s*$/)
+    return parts ? [Number(parts[1]), Number(parts[2])] : null
+}
+
+function getTeamStats(team, fixtures) {
+    const stats = { played: 0, wins: 0, losses: 0, draws: 0, pointsFor: 0, pointsAgainst: 0 }
+    fixtures.forEach(match => {
+        const score = getScore(match)
+        if (!score) return
+        const isHome = belongsToTeam(match.home || match.homeTeam, team)
+        const pointsFor = score[isHome ? 0 : 1]
+        const pointsAgainst = score[isHome ? 1 : 0]
+        stats.played += 1
+        stats.pointsFor += pointsFor
+        stats.pointsAgainst += pointsAgainst
+        if (pointsFor > pointsAgainst) stats.wins += 1
+        else if (pointsFor < pointsAgainst) stats.losses += 1
+        else stats.draws += 1
+    })
+
+    const savedStats = team.stats || {}
+    return Object.fromEntries(Object.keys(stats).map(key => [
+        key,
+        stats.played ? stats[key] : Number(savedStats[key]) || 0,
+    ]))
+}
+
 export default function TeamDetails() {
     const { teamId, tab } = useParams()
     const navigate = useNavigate()
     const loadTeam = useCallback(() => getTeamById(teamId), [teamId])
     const { data: rawTeam, isLoading, error, reload } = useApi(loadTeam, null)
+    const { data: allFixtures = [] } = useApi(getFixtures, [])
+    const { data: ladder = [] } = useApi(getLadder, [])
 
     const activeTab = tab || 'overview'
 
@@ -53,8 +93,25 @@ export default function TeamDetails() {
         homeGround: '',
         coach: '',
         captain: '',
+        region: '',
+        province: '',
+        district: '',
         ...rawTeam
     }
+    const teamMatches = allFixtures.filter(match =>
+        belongsToTeam(match.home || match.homeTeam, team) || belongsToTeam(match.away || match.awayTeam, team),
+    )
+    const fixtures = teamMatches.length ? teamMatches.map(match => {
+        const isHome = belongsToTeam(match.home || match.homeTeam, team)
+        const score = getScore(match)
+        return {
+            ...match,
+            opponent: isHome ? match.away || match.awayTeam : match.home || match.homeTeam,
+            result: match.result || (score ? `${score[isHome ? 0 : 1]}-${score[isHome ? 1 : 0]}` : ''),
+        }
+    }) : team.fixtures
+    const stats = getTeamStats(team, teamMatches)
+    const ladderRow = ladder.find(row => belongsToTeam(row.team || row.name, team))
 
     return (
         <div className="team-details">
@@ -107,8 +164,11 @@ export default function TeamDetails() {
                                 <ul className="club-meta">
                                     <li><strong>Founded:</strong> {team.founded || '—'}</li>
                                     <li><strong>Home Ground:</strong> {team.homeGround || '—'}</li>
-                                    <li><strong>Colours:</strong> {team.colors.length ? team.colors.join(', ') : '—'}</li>
-                                    <li><strong>Competition:</strong> PNG RFL</li>
+                                    <li><strong>Colours:</strong> {Array.isArray(team.colors) && team.colors.length ? team.colors.join(', ') : '—'}</li>
+                                    <li><strong>Competition:</strong> {team.competition || 'PNG RFL'}</li>
+                                    {team.region && <li><strong>Region:</strong> {team.region}</li>}
+                                    {team.province && <li><strong>Province:</strong> {team.province}</li>}
+                                    {team.district && <li><strong>District:</strong> {team.district}</li>}
                                 </ul>
                             </div>
                         </div>
@@ -122,7 +182,7 @@ export default function TeamDetails() {
                 )}
 
                 {activeTab === 'fixtures' && (
-                    team.fixtures.length ? (
+                    fixtures.length ? (
                         <table className="fixtures-table">
                             <thead>
                                 <tr>
@@ -134,13 +194,13 @@ export default function TeamDetails() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {team.fixtures.map(f => (
+                                {fixtures.map(f => (
                                     <tr key={f.id}>
                                         <td>{f.round}</td>
-                                        <td>{f.opponent}</td>
+                                        <td>{f.opponent || '—'}</td>
                                         <td>{f.venue}</td>
                                         <td>{f.date}</td>
-                                        <td>{f.result || '—'}</td>
+                                        <td>{f.result || f.status || '—'}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -149,7 +209,18 @@ export default function TeamDetails() {
                 )}
 
                 {activeTab === 'ladder' && (
-                    <p className="empty-state">Live ladder will appear during season.</p>
+                    ladderRow ? (
+                        <table className="fixtures-table">
+                            <thead><tr><th>Pos</th><th>Club</th><th>Played</th><th>Wins</th><th>Points</th></tr></thead>
+                            <tbody><tr>
+                                <td>{ladderRow.position || '—'}</td>
+                                <td>{ladderRow.team || ladderRow.name}</td>
+                                <td>{ladderRow.played ?? 0}</td>
+                                <td>{ladderRow.wins ?? 0}</td>
+                                <td>{ladderRow.points ?? 0}</td>
+                            </tr></tbody>
+                        </table>
+                    ) : <p className="empty-state">Live ladder will appear when standings are published.</p>
                 )}
 
                 {activeTab === 'honours' && (
@@ -170,7 +241,7 @@ export default function TeamDetails() {
                             <div className="staff-grid">
                                 {team.staff.map(s => (
                                     <article key={s.id} className="staff-card">
-                                        <img src={s.photo} alt={s.name} />
+                                        {s.photo && <img src={s.photo} alt={`${s.name} profile`} />}
                                         <h4>{s.name}</h4>
                                         <span>{s.role}</span>
                                     </article>
@@ -183,11 +254,12 @@ export default function TeamDetails() {
                 {activeTab === 'stats' && (
                     <section className="team-stats">
                         <div className="stats-grid">
-                            <div><span>Played</span><strong>{team.stats.played || 0}</strong></div>
-                            <div><span>Wins</span><strong>{team.stats.wins || 0}</strong></div>
-                            <div><span>Losses</span><strong>{team.stats.losses || 0}</strong></div>
-                            <div><span>Points For</span><strong>{team.stats.pointsFor || 0}</strong></div>
-                            <div><span>Points Against</span><strong>{team.stats.pointsAgainst || 0}</strong></div>
+                            <div><span>Played</span><strong>{stats.played}</strong></div>
+                            <div><span>Wins</span><strong>{stats.wins}</strong></div>
+                            <div><span>Losses</span><strong>{stats.losses}</strong></div>
+                            <div><span>Draws</span><strong>{stats.draws}</strong></div>
+                            <div><span>Points For</span><strong>{stats.pointsFor}</strong></div>
+                            <div><span>Points Against</span><strong>{stats.pointsAgainst}</strong></div>
                         </div>
                     </section>
                 )}

@@ -5,9 +5,10 @@ export default function PlayersList({ players }) {
         <div className="players-grid">
             {players.map(player => (
                 <div key={player.id} className="player-card">
-                    <img src={player.photo} alt={player.name} />
+                    {player.photo && <img src={player.photo} alt={`${player.name} profile`} />}
                     <h4>{player.name}</h4>
                     <p>{player.position}</p>
+                    {player.number && <span>#{player.number}</span>}
                 </div>
             ))}
         </div>

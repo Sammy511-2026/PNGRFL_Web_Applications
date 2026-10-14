@@ -1,0 +1,114 @@
+.page.ladder-page .ladder-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.page.ladder-page .ladder-heading h1 {
+    margin: 0;
+    font-size: clamp(2.3rem, 6vw, 4.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+    color: var(--navy-strong);
+    overflow-wrap: anywhere;
+}
+
+.page.ladder-page .ladder-heading .eyebrow {
+    margin-bottom: 0.65rem;
+    color: var(--text);
+}
+
+.page.ladder-page .ladder-competition-select {
+    display: grid;
+    flex: 0 1 330px;
+    min-width: 0;
+    gap: 0.45rem;
+    color: var(--navy-strong);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.page.ladder-page .ladder-competition-select select {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 46px;
+    padding: 0.65rem 2.4rem 0.65rem 0.85rem;
+    border: 1px solid #d7dce2;
+    border-radius: 9px;
+    background-color: var(--panel);
+    color: var(--text);
+    font: inherit;
+    letter-spacing: normal;
+    text-transform: none;
+}
+
+.page.ladder-page .ladder-competition-select select:focus-visible {
+    outline: 3px solid var(--text);
+    outline-offset: 2px;
+}
+
+.ladder-competition-select option {
+    background-color: var(--panel);
+    color: var(--text);
+}
+
+.ladder-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.page.ladder-page .ladder-table {
+    width: 100%;
+    min-width: 480px;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    background-color: var(--panel);
+    color: var(--text);
+}
+
+.page.ladder-page .ladder-table th,
+.page.ladder-page .ladder-table td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+}
+
+.page.ladder-page .ladder-table th {
+    background-color: var(--navy);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.page.ladder-page .ladder-table tbody tr:nth-child(even) {
+    background-color: color-mix(in srgb, var(--panel) 92%, var(--navy));
+}
+
+.page.ladder-page .ladder-table tbody tr:hover {
+    background-color: color-mix(in srgb, var(--panel) 84%, var(--gold));
+}
+
+.page.ladder-page .ladder-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+@media (max-width: 600px) {
+    .page.ladder-page .ladder-heading {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .page.ladder-page .ladder-competition-select {
+        flex-basis: auto;
+    }
+}

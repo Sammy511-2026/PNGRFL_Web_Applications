@@ -1,9 +1,12 @@
+import { majorCompetitions } from '../data/Competitions'
+import { Link } from 'react-router-dom'
+
 const pageContent = {
     competitions: {
         eyebrow: 'The season',
         title: 'Major Competitions',
         intro: 'Follow the competitions that bring Papua New Guinea rugby league together.',
-        items: ['Digicel ExxonMobil Cup', 'National Schoolboys Championship', 'Women’s Rugby League'],
+        items: majorCompetitions,
     },
     rules: {
         eyebrow: 'Play with purpose',
@@ -32,6 +35,11 @@ export default function ContentPage({ page }) {
                     <article key={item} className="content-panel">
                         <h2>{item}</h2>
                         <p>Information will be published by PNG RFL administrators.</p>
+                        {page === 'competitions' && (
+                            <Link to={`/fixtures?competition=${encodeURIComponent(item)}`}>
+                                View draw and competition stats
+                            </Link>
+                        )}
                     </article>
                 ))}
             </div>

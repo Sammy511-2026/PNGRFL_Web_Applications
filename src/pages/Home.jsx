@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { getTeams } from '../api/resources'
 import { useApi } from '../hooks/useApi'
 import RequestState from '../Components/ui/RequestState'
+import FixtureSchedule from '../Components/fixtures/FixtureSchedule'
 import './Home.css'
 
 
@@ -59,6 +60,11 @@ export default function Home() {
                     View Fixtures
                 </Link>
             </section>
+
+            <FixtureSchedule
+                title="All Fixtures"
+                description="Browse fixtures for every PNG RFL team and major competition."
+            />
 
             {/* CLUBS PREVIEW */}
             <section className="teams-section">

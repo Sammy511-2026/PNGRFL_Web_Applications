@@ -1,12 +1,14 @@
+import FixtureSchedule from '../Components/fixtures/FixtureSchedule'
+import { majorCompetitions } from '../data/Competitions'
+
 export default function MatchCentre() {
     return (
-        <div className="page">
-            <h1>Match Centre</h1>
-            <p>Live matches, results, and highlights will appear here.</p>
-
-            <div className="empty-state">
-                Match Centre will be activated during competition rounds.
-            </div>
-        </div>
+        <main className="match-centre-page">
+            <FixtureSchedule
+                title="Draw"
+                description="Choose a season, team, and round to follow the Digicel ExxonMobil Cup draw."
+                defaultCompetition={majorCompetitions[0]}
+            />
+        </main>
     )
 }

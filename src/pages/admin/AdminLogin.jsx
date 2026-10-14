@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { login } from '../../api/resources'
-import { setAuthToken } from '../../api/client'
+import { setAuthToken, setAuthUser } from '../../api/client'
 import './Admin.css'
 
 export default function AdminLogin() {
@@ -17,6 +17,7 @@ export default function AdminLogin() {
         try {
             const result = await login({ email: formData.get('email'), password: formData.get('password') })
             setAuthToken(result.token)
+            setAuthUser(result.user)
             navigate('/admin/dashboard')
         } catch (requestError) {
             setError(requestError.message)
@@ -45,9 +46,7 @@ export default function AdminLogin() {
                 <button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Logging in...' : 'Log in'}</button>
             </form>
 
-            <p>
-                Need an account? <Link to="/admin/signup">Sign up</Link>
-            </p>
+            <p>Administrator accounts are created by the PNG RFL super administrator.</p>
         </main>
     )
 }

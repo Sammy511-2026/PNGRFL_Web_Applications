@@ -1,0 +1,123 @@
+.match-draw-page {
+    width: min(100% - 2rem, 1100px);
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 4rem) 0;
+}
+
+.match-draw-page > h1 {
+    margin: 0 0 1rem;
+    color: var(--navy-strong);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1;
+}
+
+.match-draw-page > h1 span {
+    color: var(--red);
+    white-space: nowrap;
+}
+
+.match-draw-meta,
+.match-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-bottom: 1.5rem;
+}
+
+.match-draw-meta span,
+.match-links a {
+    padding: 0.65rem 0.85rem;
+    border-radius: 8px;
+    background: #edf1f5;
+    color: var(--navy-strong);
+    font-weight: 700;
+}
+
+.match-links a {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+.match-draw-panel {
+    padding: 1.25rem;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.match-draw-panel h2 {
+    margin: 0 0 0.8rem;
+    color: var(--navy-strong);
+    font-size: 1.25rem;
+}
+
+.match-draw-panel > a,
+.match-lineup-group li small {
+    color: #a9000a;
+    font-weight: 700;
+}
+
+.match-stat-grid,
+.match-lineups {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.match-stat-grid article {
+    display: grid;
+    align-content: start;
+    gap: 0.35rem;
+}
+
+.match-stat-grid article > strong {
+    color: var(--red);
+    font-size: 2rem;
+}
+
+.match-lineup-groups {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 1rem;
+}
+
+.match-lineup-group h3 {
+    margin: 0 0 0.5rem;
+}
+
+.match-lineup-group ul {
+    display: grid;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.match-lineup-group li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.35rem 1rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    background: #f4f6f9;
+}
+
+.match-lineup-group li div {
+    display: grid;
+    gap: 0.2rem;
+}
+
+.match-lineup-group li div span,
+.match-lineup-group li small,
+.match-draw-empty {
+    color: #5f6875;
+}
+
+@media (max-width: 700px) {
+    .match-stat-grid,
+    .match-lineups {
+        grid-template-columns: 1fr;
+    }
+}
