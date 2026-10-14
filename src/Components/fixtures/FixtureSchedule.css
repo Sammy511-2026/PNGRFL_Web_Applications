@@ -78,7 +78,10 @@
 .fixture-round-control button {
     flex: 0 0 42px;
     height: 40px;
+    min-height: 40px;
+    padding: 0;
     border: 0;
+    border-radius: 0;
     background: transparent;
     color: #333;
     font-size: 1.7rem;
@@ -164,6 +167,11 @@
 
     .fixture-filters {
         grid-template-columns: 1fr;
+    }
+
+    .fixture-calendar-button {
+        width: 100%;
+        min-height: 48px;
     }
 }
 

@@ -13,7 +13,7 @@ import Fixtures from './pages/Fixtures'
 import Leagues from './pages/Leagues'
 import AdminLogin from './pages/admin/AdminLogin'
 import AdminDashboard from './pages/admin/AdminDashboard'
-/*import AdminSignup from './pages/admin/AdminSignup'/*
+import AdminSignup from './pages/admin/AdminSignup'
 import ContentPage from './pages/ContentPage'
 
 /* ================= ASSETS ================= */

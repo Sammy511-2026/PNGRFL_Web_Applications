@@ -59,32 +59,6 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-.btn-primary,
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: 0.85rem 2rem;
-  border-radius: 999px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
-}
-
-.btn-primary {
-  background: linear-gradient(180deg, var(--red) 0%, var(--red-dark) 100%);
-  color: #fff;
-  box-shadow: 0 16px 26px rgba(215, 25, 32, 0.28);
-}
-
-.btn-primary:hover,
-.btn-primary:focus-visible {
-  transform: translateY(-2px);
-  box-shadow: 0 22px 30px rgba(215, 25, 32, 0.36);
-}
-
 .teams-section {
   padding: clamp(3rem, 8vw, 5.5rem) clamp(1rem, 4vw, 2.5rem);
   background: linear-gradient(180deg, #f4f6f9 0%, #ebeff5 100%);
@@ -143,18 +117,6 @@
   font-size: 0.84rem;
 }
 
-.btn-outline {
-  border: 2px solid var(--navy-strong);
-  background: transparent;
-  color: var(--navy-strong);
-}
-
-.btn-outline:hover,
-.btn-outline:focus-visible {
-  background: var(--navy-strong);
-  color: #fff;
-}
-
 @media (max-width: 768px) {
   .hero-overlay {
     padding: 2rem 1.25rem 2.5rem;
@@ -196,9 +158,4 @@
     width: 58px;
   }
 
-  .btn-primary,
-  .btn-outline {
-    width: 100%;
-    padding: 0.8rem 1rem;
-  }
 }

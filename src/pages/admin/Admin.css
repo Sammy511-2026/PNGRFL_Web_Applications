@@ -333,8 +333,10 @@
 
 .admin-login button,
 .admin-signup button {
+    min-height: 48px;
     border: 0;
     padding: 0.9rem 1.25rem;
+    border-radius: 4px;
     background: var(--rfl-red);
     color: var(--rfl-white);
     font: inherit;
@@ -701,6 +703,7 @@
     .admin-dashboard .admin-header-actions a,
     .admin-dashboard .admin-header-actions button {
         flex: 1;
+        min-width: 0;
     }
 
     .admin-dashboard .admin-resource-form {
@@ -708,6 +711,12 @@
     }
 
     .admin-dashboard .admin-resource-form > button {
+        width: 100%;
+        min-height: 50px;
+    }
+
+    .admin-login button,
+    .admin-signup button {
         width: 100%;
     }
 
