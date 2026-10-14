@@ -62,12 +62,12 @@ function AppLayout() {
             <li><Link to="/" onClick={closeMenu}>Home</Link></li>
 
             <li className="nav-dropdown">
-              <details>
-                <summary>Major Competitions</summary>
+              <details className="competition-dropdown">
+                <summary className="competition-dropdown-trigger">Major Competitions</summary>
                 <ul className="nav-dropdown-menu">
                   <li className="nav-cup-dropdown">
                     <details>
-                      <summary>Digicel ExxonMobil Cup</summary>
+                      <summary className="competition-submenu-trigger">Digicel ExxonMobil Cup</summary>
                       <ul>
                         <li><Link to="/fixtures?competition=Digicel%20ExxonMobil%20Cup" onClick={closeMenu}>Cup draw and stats</Link></li>
                         <li><Link to="/fixtures?competition=Women%E2%80%99s%20Rugby%20League" onClick={closeMenu}>Women’s Competition</Link></li>
