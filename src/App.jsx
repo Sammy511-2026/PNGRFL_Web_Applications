@@ -91,7 +91,6 @@ function AppLayout() {
 
             <li><Link to="/ladder" onClick={closeMenu}>Ladder</Link></li>
             <li><Link to="/shop" onClick={closeMenu}>Shop</Link></li>
-            <li><Link to="/admin" onClick={closeMenu}>Admin</Link></li>
           </ul>
         </nav>
 
