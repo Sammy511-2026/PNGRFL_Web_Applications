@@ -46,14 +46,14 @@ function createMockResource(resource, payload) {
 }
 
 const mockTeams = [
-    { id: 'png-rfl-select', name: 'PNG RFL Select', competition: 'Digicel ExxonMobil Cup', homeGround: 'National Football Stadium', logo: pngRflLogo, status: 'published' },
-    { id: 'port-moresby', name: 'Port Moresby', competition: 'Digicel ExxonMobil Cup', homeGround: 'Mitsubishi Oval', logo: pngRflLogo, status: 'published' },
-    { id: 'lae', name: 'Lae', competition: 'Digicel ExxonMobil Cup', homeGround: 'Lae Rugby League Oval', logo: pngRflLogo, status: 'published' },
+    { id: 'png-rfl-select', name: 'PRK Mendi Muruks', competition: 'Digicel ExxonMobil Cup', homeGround: 'Lae Rugby League Oval', logo: pngRflLogo, status: 'published' },
+    { id: 'port-moresby', name: 'Moni Plus NCD Vipers', competition: 'Digicel ExxonMobil Cup', homeGround: 'Santos Football Stadium', logo: pngRflLogo, status: 'published' },
+    { id: 'lae', name: 'Snax Tigers', competition: 'Digicel ExxonMobil Cup', homeGround: 'Lae Rugby League Oval', logo: pngRflLogo, status: 'published' },
 ]
 
 const mockFixtures = [
-    { id: 'fixture-001', competition: 'Digicel ExxonMobil Cup', season: '2026', round: 'Round 1', home: 'Port Moresby', away: 'Lae', venue: 'Mitsubishi Oval', date: '2026-04-04', time: '15:00', status: 'scheduled' },
-    { id: 'fixture-002', competition: 'Digicel ExxonMobil Cup', season: '2026', round: 'Round 1', home: 'PNG RFL Select', away: 'Port Moresby', venue: 'National Football Stadium', date: '2026-04-05', time: '15:00', status: 'scheduled' },
+    { id: 'fixture-001', competition: 'Digicel ExxonMobil Cup', season: '2026', round: 'Round 1', home: 'Moni Plus NCD Vipers', away: 'Snax Tigers', venue: 'Santos Football Stadium    ', date: '2026-04-04', time: '15:00', status: 'scheduled' },
+    { id: 'fixture-002', competition: 'Digicel ExxonMobil Cup', season: '2026', round: 'Round 1', home: 'PRK Mendi Muruks', away: 'Moni Plus NCD Vipers', venue: 'National Football Stadium', date: '2026-04-05', time: '15:00', status: 'scheduled' },
 ]
 
 const mockLadder = mockTeams.map((team, index) => ({

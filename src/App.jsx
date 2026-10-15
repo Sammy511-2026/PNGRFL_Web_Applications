@@ -12,6 +12,7 @@ import Ladder from './pages/Ladder'
 import Shop from './pages/Shop'
 import Fixtures from './pages/Fixtures'
 import Leagues from './pages/Leagues'
+import LeagueDetails from './pages/LeagueDetails'
 import CompetitionPage from './pages/CompetitionPage'
 import AdminLogin from './pages/admin/AdminLogin'
 import AdminDashboard from './pages/admin/AdminDashboard'
@@ -128,6 +129,7 @@ function AppLayout() {
           <Route path="/matches" element={<MatchCentre />} />
           <Route path="/matches/:matchId" element={<MatchDraw />} />
           <Route path="/fixtures" element={<Fixtures />} />
+          <Route path="/leagues/:leagueId" element={<LeagueDetails />} />
           <Route path="/leagues" element={<Leagues />} />
           <Route path="/ladder" element={<Ladder />} />
 

@@ -31,6 +31,7 @@ export default function FixtureSchedule({
     description = 'Official PNG Rugby Football League match schedule and results.',
     defaultCompetition = '',
     showCompetitionFilter = true,
+    showTeamFilter = true,
 }) {
     const fixturesRequest = useApi(getFixtures, [])
     const teamsRequest = useApi(getTeams, [])
@@ -38,7 +39,7 @@ export default function FixtureSchedule({
     const [searchParams, setSearchParams] = useSearchParams()
     const selectedCompetition = searchParams.get('competition') || ''
     const selectedLeague = searchParams.get('league') || ''
-    const selectedTeam = searchParams.get('team') || ''
+    const selectedTeam = showTeamFilter ? searchParams.get('team') || '' : ''
     const selectedSeason = searchParams.get('season') || ''
     const selectedRound = searchParams.get('round') || ''
 
@@ -207,19 +208,21 @@ export default function FixtureSchedule({
                         </select>
                     </label>
 
-                    <label className="fixture-filter-control">
-                        <span className="visually-hidden">Team</span>
-                        <select
-                            aria-label="Team"
-                            value={selectedTeam}
-                            onChange={event => updateParams({ team: event.target.value })}
-                        >
-                            <option value="">All Teams</option>
-                            {availableTeams.map(team => (
-                                <option key={team.id} value={team.id}>{team.name}</option>
-                            ))}
-                        </select>
-                    </label>
+                    {showTeamFilter && (
+                        <label className="fixture-filter-control">
+                            <span className="visually-hidden">Team</span>
+                            <select
+                                aria-label="Team"
+                                value={selectedTeam}
+                                onChange={event => updateParams({ team: event.target.value })}
+                            >
+                                <option value="">All Teams</option>
+                                {availableTeams.map(team => (
+                                    <option key={team.id} value={team.id}>{team.name}</option>
+                                ))}
+                            </select>
+                        </label>
+                    )}
 
                     <div className="fixture-round-control" aria-label="Select round">
                         <button type="button" aria-label="Previous round" disabled={!rounds.length} onClick={() => moveRound(-1)}>‹</button>

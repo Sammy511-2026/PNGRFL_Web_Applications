@@ -13,7 +13,6 @@ const views = [
     { id: 'draw', label: 'Draw & Fixtures' },
     { id: 'ladder', label: 'Ladder' },
     { id: 'stats', label: 'Stats' },
-    { id: 'teams', label: 'Teams' },
 ]
 
 function normalize(value) {
@@ -136,10 +135,11 @@ export default function CompetitionPage() {
                     description={`View the ${competition} draw, fixtures, and results.`}
                     defaultCompetition={competition}
                     showCompetitionFilter={false}
+                    showTeamFilter={false}
                 />
             )}
 
-            {activeView === 'teams' && (
+            {activeView === 'draw' && (
                 <section className="competition-teams" aria-labelledby="competition-teams-title">
                     <h2 id="competition-teams-title">Teams</h2>
                     <RequestState

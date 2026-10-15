@@ -4,7 +4,7 @@ import { clearAuthSession, getAuthToken, getAuthUser, USE_MOCK_DATA } from '../.
 import { createAdminAccount, createResource, getFixtures, getLeagues, getTeams, updateResource } from '../../api/resources'
 import { useApi } from '../../hooks/useApi'
 import RequestState from '../../Components/ui/RequestState'
-import { leagueFormats, leagueRegions } from '../../data/Leagues'
+import { getLeagueLocation, leagueFormats, leagueRegions } from '../../data/Leagues'
 import { allCompetitions } from '../../data/Competitions'
 import './Admin.css'
 
@@ -20,12 +20,6 @@ function findProvince(region, value) {
     return region.provinces.find(province =>
         province.id === String(value).toLowerCase() || province.name.toLowerCase() === String(value).toLowerCase(),
     ) || null
-}
-
-function matchesLocation(value, location) {
-    if (!value || !location) return false
-    const normalizedValue = String(value).trim().toLowerCase()
-    return normalizedValue === location.id || normalizedValue === location.name.toLowerCase()
 }
 
 function loadNoRecords() {
@@ -72,6 +66,8 @@ export default function AdminDashboard() {
     const [selectedAdminProvince, setSelectedAdminProvince] = useState(leagueRegions[0].provinces[0].id)
     const [selectedTeamId, setSelectedTeamId] = useState('new')
     const [selectedFixtureHome, setSelectedFixtureHome] = useState('')
+    const [selectedFixtureAway, setSelectedFixtureAway] = useState('')
+    const [selectedFixtureCompetition, setSelectedFixtureCompetition] = useState('')
     const [scheduledGround, setScheduledGround] = useState('')
 
     useEffect(() => {
@@ -90,10 +86,14 @@ export default function AdminDashboard() {
     const adminProvinceOptions = adminRegion.provinces
     const adminProvince = findProvince(adminRegion, selectedAdminProvince) || adminProvinceOptions[0]
     const selectedTeam = teamsRequest.data.find(team => String(team.id) === String(selectedTeamId))
+    const fixtureTeams = teamsRequest.data.filter(team =>
+        String(team.competition || '').trim().toLowerCase() === selectedFixtureCompetition.trim().toLowerCase(),
+    )
     const visibleLeagues = leaguesRequest.data.filter(league => {
         if (isSuperAdmin) return true
-        if (!matchesLocation(league.region, assignedRegion)) return false
-        return !isProvinceAdmin || matchesLocation(league.province, assignedProvince)
+        const location = getLeagueLocation(league)
+        if (location.region?.id !== assignedRegion?.id) return false
+        return !isProvinceAdmin || location.province?.id === assignedProvince?.id
     })
 
     async function handleSubmit(event) {
@@ -306,7 +306,9 @@ export default function AdminDashboard() {
                             <label>Club colours<input name="colors" defaultValue={selectedTeam?.colors?.join(', ') || ''} placeholder="Red, black, gold" /></label>
                             <label>Head coach<input name="coach" defaultValue={selectedTeam?.coach || ''} /></label>
                             <label>Captain<input name="captain" defaultValue={selectedTeam?.captain || ''} /></label>
-                            <label>Competition<input name="competition" defaultValue={selectedTeam?.competition || allCompetitions[0]} /></label>
+                            <label>Competition<select name="competition" defaultValue={selectedTeam?.competition || allCompetitions[0]} required>
+                                {allCompetitions.map(competition => <option key={competition} value={competition}>{competition}</option>)}
+                            </select></label>
                             <label>Region<input name="clubRegion" defaultValue={selectedTeam?.region || ''} /></label>
                             <label>Province<input name="clubProvince" defaultValue={selectedTeam?.province || ''} /></label>
                             <label>District<input name="clubDistrict" defaultValue={selectedTeam?.district || ''} /></label>
@@ -327,19 +329,24 @@ export default function AdminDashboard() {
                             </fieldset>
                         </> : activeResource === 'fixture' ? <>
                             <label>Home team<select name="home" required value={selectedFixtureHome} onChange={event => {
-                                const homeTeam = teamsRequest.data.find(team => team.name === event.target.value)
+                                const homeTeam = fixtureTeams.find(team => team.name === event.target.value)
                                 setSelectedFixtureHome(event.target.value)
                                 setScheduledGround(homeTeam?.homeGround || '')
                             }}>
                                 <option value="" disabled>Select a club</option>
-                                {teamsRequest.data.map(team => <option key={team.id} value={team.name}>{team.name}</option>)}
+                                {fixtureTeams.map(team => <option key={team.id} value={team.name}>{team.name}</option>)}
                             </select></label>
-                            <label>Away team<select name="away" required defaultValue="">
+                            <label>Away team<select name="away" required value={selectedFixtureAway} onChange={event => setSelectedFixtureAway(event.target.value)}>
                                 <option value="" disabled>Select a club</option>
-                                {teamsRequest.data.map(team => <option key={team.id} value={team.name}>{team.name}</option>)}
+                                {fixtureTeams.map(team => <option key={team.id} value={team.name}>{team.name}</option>)}
                             </select></label>
                             <label>Round<input name="round" placeholder="Round 1" required /></label>
-                            <label>Competition<select name="competition" defaultValue="" required>
+                            <label>Competition<select name="competition" value={selectedFixtureCompetition} onChange={event => {
+                                setSelectedFixtureCompetition(event.target.value)
+                                setSelectedFixtureHome('')
+                                setSelectedFixtureAway('')
+                                setScheduledGround('')
+                            }} required>
                                 <option value="" disabled>Select a major competition</option>
                                 {allCompetitions.map(competition => <option key={competition} value={competition}>{competition}</option>)}
                             </select></label>
