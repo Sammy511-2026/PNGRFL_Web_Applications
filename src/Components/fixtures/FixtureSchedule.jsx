@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { getFixtures, getLeagues, getTeams } from '../../api/resources'
-import { majorCompetitions } from '../../data/Competitions'
+import { allCompetitions } from '../../data/Competitions'
 import { useApi } from '../../hooks/useApi'
 import RequestState from '../ui/RequestState'
 import FixtureCard from './FixtureCard'
@@ -30,6 +30,7 @@ export default function FixtureSchedule({
     title = 'Fixtures & Results',
     description = 'Official PNG Rugby Football League match schedule and results.',
     defaultCompetition = '',
+    showCompetitionFilter = true,
 }) {
     const fixturesRequest = useApi(getFixtures, [])
     const teamsRequest = useApi(getTeams, [])
@@ -42,19 +43,29 @@ export default function FixtureSchedule({
     const selectedRound = searchParams.get('round') || ''
 
     const competitions = useMemo(() => [
-        ...majorCompetitions.map(name => ({ value: name, label: name })),
+        ...allCompetitions.map(name => ({ value: name, label: name })),
         ...leaguesRequest.data.map(league => ({ value: `league:${league.id}`, label: league.name })),
     ], [leaguesRequest.data])
 
-    const seasons = useMemo(() => {
-        const years = [...new Set(fixturesRequest.data.map(getSeason).filter(Boolean))]
-        if (!years.length) years.push(String(new Date().getFullYear()))
-        return years.sort((a, b) => b.localeCompare(a))
-    }, [fixturesRequest.data])
-    const activeSeason = selectedSeason || seasons[0] || ''
     const activeCompetition = selectedCompetition === 'all'
         ? ''
         : selectedCompetition || defaultCompetition
+
+    const competitionFixtures = useMemo(() => fixturesRequest.data.filter(fixture => {
+        if (activeCompetition.startsWith('league:')) {
+            return String(fixture.leagueId || '') === activeCompetition.slice('league:'.length)
+        }
+        return !activeCompetition || normalize(fixture.competition) === normalize(activeCompetition)
+    }), [activeCompetition, fixturesRequest.data])
+    const availableTeams = showCompetitionFilter || !activeCompetition || activeCompetition.startsWith('league:')
+        ? teamsRequest.data
+        : teamsRequest.data.filter(team => normalize(team.competition) === normalize(activeCompetition))
+    const seasons = useMemo(() => {
+        const years = [...new Set(competitionFixtures.map(getSeason).filter(Boolean))]
+        if (!years.length) years.push(String(new Date().getFullYear()))
+        return years.sort((a, b) => b.localeCompare(a))
+    }, [competitionFixtures])
+    const activeSeason = selectedSeason || seasons[0] || ''
 
     function updateParams(changes) {
         const nextParams = new URLSearchParams(searchParams)
@@ -157,31 +168,33 @@ export default function FixtureSchedule({
 
             <div className="fixture-schedule-content">
                 <div className="fixture-filters" aria-label="Filter draw">
-                    <label className="fixture-filter-control">
-                        <span className="visually-hidden">Competition</span>
-                        <select
-                            aria-label="Competition"
-                            value={selectedCompetition === 'all'
-                                ? ''
-                                : selectedCompetition || (selectedLeague ? `league:${selectedLeague}` : defaultCompetition)}
-                            onChange={event => {
-                                const value = event.target.value
-                                updateParams({
-                                    competition: value.startsWith('league:')
-                                        ? ''
-                                        : value || (defaultCompetition ? 'all' : ''),
-                                    league: value.startsWith('league:') ? value.slice('league:'.length) : '',
-                                    team: '',
-                                    round: '',
-                                })
-                            }}
-                        >
-                            <option value="">All Competitions</option>
-                            {competitions.map(competition => (
-                                <option key={competition.value} value={competition.value}>{competition.label}</option>
-                            ))}
-                        </select>
-                    </label>
+                    {showCompetitionFilter && (
+                        <label className="fixture-filter-control">
+                            <span className="visually-hidden">Competition</span>
+                            <select
+                                aria-label="Competition"
+                                value={selectedCompetition === 'all'
+                                    ? ''
+                                    : selectedCompetition || (selectedLeague ? `league:${selectedLeague}` : defaultCompetition)}
+                                onChange={event => {
+                                    const value = event.target.value
+                                    updateParams({
+                                        competition: value.startsWith('league:')
+                                            ? ''
+                                            : value || (defaultCompetition ? 'all' : ''),
+                                        league: value.startsWith('league:') ? value.slice('league:'.length) : '',
+                                        team: '',
+                                        round: '',
+                                    })
+                                }}
+                            >
+                                <option value="">All Competitions</option>
+                                {competitions.map(competition => (
+                                    <option key={competition.value} value={competition.value}>{competition.label}</option>
+                                ))}
+                            </select>
+                        </label>
+                    )}
 
                     <label className="fixture-filter-control">
                         <span className="visually-hidden">Season</span>
@@ -202,7 +215,7 @@ export default function FixtureSchedule({
                             onChange={event => updateParams({ team: event.target.value })}
                         >
                             <option value="">All Teams</option>
-                            {teamsRequest.data.map(team => (
+                            {availableTeams.map(team => (
                                 <option key={team.id} value={team.id}>{team.name}</option>
                             ))}
                         </select>

@@ -1,0 +1,117 @@
+.competition-page {
+  width: min(100% - 2rem, 1180px);
+  margin: 0 auto;
+  padding: clamp(2.25rem, 5vw, 4.5rem) 0;
+}
+
+.competition-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.competition-page h1 {
+  margin: 0;
+  color: var(--navy-strong);
+  font-size: clamp(2.3rem, 6vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+}
+
+.competition-heading .eyebrow {
+  margin-bottom: 0.65rem;
+}
+
+.competition-views {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.competition-views button {
+  min-height: 42px;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+}
+
+.competition-views button.is-active,
+.competition-views button:hover,
+.competition-views button:focus-visible {
+  border-color: var(--navy);
+  background: var(--navy);
+  color: #fff;
+}
+
+.competition-data-section h2,
+.competition-teams h2 {
+  margin: 0 0 1rem;
+  color: var(--navy-strong);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.competition-summary-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.8rem;
+  margin: 1.25rem 0;
+}
+
+.competition-summary-stats div {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.competition-summary-stats span {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.competition-summary-stats strong {
+  color: var(--navy-strong);
+  font-size: 1.6rem;
+}
+
+.competition-teams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 600px) {
+  .competition-page {
+    width: min(100% - 1.5rem, 1180px);
+  }
+
+  .competition-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .competition-heading .ladder-competition-select {
+    flex-basis: auto;
+  }
+
+  .competition-teams-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+}

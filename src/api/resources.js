@@ -46,9 +46,9 @@ function createMockResource(resource, payload) {
 }
 
 const mockTeams = [
-    { id: 'png-rfl-select', name: 'PNG RFL Select', homeGround: 'National Football Stadium', logo: pngRflLogo, status: 'published' },
-    { id: 'port-moresby', name: 'Port Moresby', homeGround: 'Mitsubishi Oval', logo: pngRflLogo, status: 'published' },
-    { id: 'lae', name: 'Lae', homeGround: 'Lae Rugby League Oval', logo: pngRflLogo, status: 'published' },
+    { id: 'png-rfl-select', name: 'PNG RFL Select', competition: 'Digicel ExxonMobil Cup', homeGround: 'National Football Stadium', logo: pngRflLogo, status: 'published' },
+    { id: 'port-moresby', name: 'Port Moresby', competition: 'Digicel ExxonMobil Cup', homeGround: 'Mitsubishi Oval', logo: pngRflLogo, status: 'published' },
+    { id: 'lae', name: 'Lae', competition: 'Digicel ExxonMobil Cup', homeGround: 'Lae Rugby League Oval', logo: pngRflLogo, status: 'published' },
 ]
 
 const mockFixtures = [

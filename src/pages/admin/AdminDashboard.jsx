@@ -5,7 +5,7 @@ import { createAdminAccount, createResource, getFixtures, getLeagues, getTeams, 
 import { useApi } from '../../hooks/useApi'
 import RequestState from '../../Components/ui/RequestState'
 import { leagueFormats, leagueRegions } from '../../data/Leagues'
-import { majorCompetitions } from '../../data/Competitions'
+import { allCompetitions } from '../../data/Competitions'
 import './Admin.css'
 
 function findRegion(value) {
@@ -306,7 +306,7 @@ export default function AdminDashboard() {
                             <label>Club colours<input name="colors" defaultValue={selectedTeam?.colors?.join(', ') || ''} placeholder="Red, black, gold" /></label>
                             <label>Head coach<input name="coach" defaultValue={selectedTeam?.coach || ''} /></label>
                             <label>Captain<input name="captain" defaultValue={selectedTeam?.captain || ''} /></label>
-                            <label>Competition<input name="competition" defaultValue={selectedTeam?.competition || 'PNG RFL'} /></label>
+                            <label>Competition<input name="competition" defaultValue={selectedTeam?.competition || allCompetitions[0]} /></label>
                             <label>Region<input name="clubRegion" defaultValue={selectedTeam?.region || ''} /></label>
                             <label>Province<input name="clubProvince" defaultValue={selectedTeam?.province || ''} /></label>
                             <label>District<input name="clubDistrict" defaultValue={selectedTeam?.district || ''} /></label>
@@ -341,7 +341,7 @@ export default function AdminDashboard() {
                             <label>Round<input name="round" placeholder="Round 1" required /></label>
                             <label>Competition<select name="competition" defaultValue="" required>
                                 <option value="" disabled>Select a major competition</option>
-                                {majorCompetitions.map(competition => <option key={competition} value={competition}>{competition}</option>)}
+                                {allCompetitions.map(competition => <option key={competition} value={competition}>{competition}</option>)}
                             </select></label>
                             <label>League<select name="leagueId" defaultValue="">
                                 <option value="">Not linked to a league</option>

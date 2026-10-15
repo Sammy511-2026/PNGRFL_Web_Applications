@@ -1,5 +1,5 @@
-import { getLadder } from '../api/resources'
-import { majorCompetitions } from '../data/Competitions'
+import { getLadder, getTeams } from '../api/resources'
+import { allCompetitions } from '../data/Competitions'
 import { useApi } from '../hooks/useApi'
 import RequestState from '../Components/ui/RequestState'
 import { useSearchParams } from 'react-router-dom'
@@ -7,11 +7,29 @@ import './Ladder.css'
 
 export default function Ladder() {
     const { data: ladder, isLoading, error, reload } = useApi(getLadder, [])
+    const {
+        data: teams,
+        isLoading: teamsLoading,
+        error: teamsError,
+        reload: reloadTeams,
+    } = useApi(getTeams, [])
     const [searchParams, setSearchParams] = useSearchParams()
     const requestedCompetition = searchParams.get('competition')
-    const selectedCompetition = majorCompetitions.includes(requestedCompetition)
+    const selectedCompetition = allCompetitions.includes(requestedCompetition)
         ? requestedCompetition
-        : majorCompetitions[0]
+        : allCompetitions[0]
+    const competitionTeams = teams.filter(team =>
+        String(team.competition || '').trim().toLowerCase() === selectedCompetition.toLowerCase(),
+    )
+    const competitionTeamNames = new Set(competitionTeams.flatMap(team => [
+        String(team.id).toLowerCase(),
+        String(team.name).trim().toLowerCase(),
+    ]))
+    const competitionLadder = ladder.filter(row =>
+        row.competition
+            ? String(row.competition).trim().toLowerCase() === selectedCompetition.toLowerCase()
+            : competitionTeamNames.has(String(row.team || row.name).trim().toLowerCase()),
+    )
 
     function selectCompetition(event) {
         const nextParams = new URLSearchParams(searchParams)
@@ -29,17 +47,24 @@ export default function Ladder() {
                 <label className="ladder-competition-select">
                     <span>Major Competition</span>
                     <select value={selectedCompetition} onChange={selectCompetition}>
-                        {majorCompetitions.map(competition => (
+                        {allCompetitions.map(competition => (
                             <option key={competition} value={competition}>{competition}</option>
                         ))}
                     </select>
                 </label>
             </header>
 
-            <RequestState isLoading={isLoading} error={error} onRetry={reload} />
+            <RequestState
+                isLoading={isLoading || teamsLoading}
+                error={error || teamsError}
+                onRetry={() => {
+                    reload()
+                    reloadTeams()
+                }}
+            />
 
-            {!isLoading && !error && ladder.length === 0 && <p className="empty-state">The ladder will appear when the season begins.</p>}
-            {ladder.length > 0 && <div className="ladder-table-wrap">
+            {!isLoading && !teamsLoading && !error && !teamsError && competitionLadder.length === 0 && <p className="empty-state">The ladder will appear when standings are published.</p>}
+            {!error && !teamsError && competitionLadder.length > 0 && <div className="ladder-table-wrap">
                 <table className="fixtures-table ladder-table">
                     <thead>
                         <tr>
@@ -50,7 +75,7 @@ export default function Ladder() {
                         </tr>
                     </thead>
                     <tbody>
-                        {ladder.map(row => (
+                        {competitionLadder.map(row => (
                             <tr key={row.position}>
                                 <td>{row.position}</td>
                                 <td>{row.team}</td>
